@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_GROUPS 500
+void groupanalyzer(char seq[], int len) 
+{
+    int seqLen=strlen(seq);
+    if (seqLen<len)
+	 {
+        printf(" too large\n");
+        return;
+    }
+    char uqgrp[MAX_GROUPS][len+1];
+    int gcount[MAX_GROUPS]={0};
+    int uqcount=0;
+    for (int i=0;i<=seqLen-len;i++) {
+        char crntgrp[len+1];
+        strncpy(crntgrp,seq+i,len);
+        crntgrp[len]='\0';
+        int found=0;
+        for (int j=0;j<uqcount;j++) {
+            if (strcmp(uqgrp[j], crntgrp)==0) {
+                found=1;
+                gcount[j]++;
+                break;
+            }
+        }
+        if (!found) {
+            strcpy(uqgrp[uqcount],crntgrp);
+            gcount[uqcount]++;
+            uqcount++;
+        }
+    }
+    for (int i=0;i<uqcount;i++) {
+        printf("%s %d\n",uqgrp[i],gcount[i]);
+    }
+}
+
+int main() 
+{
+    char in[100];
+    int len;
+    printf("enter the sequence of char: ");
+    scanf("%s",in);
+    printf("enter  group length: ");
+    scanf("%d", &len);
+    groupanalyzer(in,len);
+    return 0;
+}
