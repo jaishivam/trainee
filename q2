@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void sortArrDesc(int arr[], int size) 
+{  
+    for (int i = 0; i < size - 1; i++)
+	 {
+        for (int j = 0; j < size - i - 1; j++)
+		 {
+            if (arr[j] < arr[j + 1]) 
+			{
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+int countDigits(int n) 
+{
+    if (n == 0) 
+	{
+        return 4;
+    }
+    const char *wordsUpTo19[] ={"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+                                "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+
+    const char *tens[]={"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+
+    void c2w(int num, char *res) {
+        if (num >= 100) {
+            sprintf(res, "%s hundred", wordsUpTo19[num / 100]);
+            num %= 100;
+        }
+
+        if (num >= 20) {
+            strcat(res, tens[num / 10]);
+            num %= 10;
+            if (num > 0) {
+                strcat(res, " ");
+            }
+        }
+
+        if (num > 0) {
+            strcat(res, wordsUpTo19[num]);
+        }
+    }
+
+    char res[100];  
+    sprintf(res, "");
+    c2w(n, res);
+
+    int count = 0;
+    for (int i = 0; res[i] != '\0'; i++) {
+        if (res[i] != ' ' && res[i] != '-') {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+void absDifferences(int arr[], int absArr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        int absDiff = abs(arr[i] - arr[i + 1]);
+        absArr[i] = countDigits(absDiff);
+    }
+}
+
+int main() {
+
+printf("enter size of array : ");
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    printf("enter elements : ");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);   
+    }
+    int size=n;
+   
+    int absArr[size - 1];
+    absDifferences(arr,absArr,size);
+
+    sortArrDesc(absArr,size-1);
+
+    printf("in Descending Order: ");
+    
+    printf("%d ", absArr[0]);
+
+
+    for (int i = 1; i < size - 1; i++) {
+        if (absArr[i] != absArr[i - 1]) {
+            printf("%d ", absArr[i]);
+        }
+    }
+    
+    return 0;
+}
