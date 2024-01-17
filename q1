@@ -1,0 +1,88 @@
+int playenum(unsigned int N) {
+   unsigned int p=1,large=0,d,Sq=0;
+
+   while (N>0)
+    {
+       d=N%10;
+       p*=d;
+
+       if(d>large) 
+       {
+           large=d;
+       }
+
+       N /=10;
+   }
+   if (p%2==0) 
+   {
+       
+       int cube =large* large* large;
+       printf("even. Cube of largest digit: %d\n", cube);
+   } else
+    {
+       
+       while (p>0)
+        {
+           d=p%10;
+           Sq+=d*d;
+           p /=10;
+       }
+       printf("odd. Sum of squares of digits: %d\n",Sq);
+   }
+   return 0;  
+}
+
+int main() 
+{
+   unsigned int N;
+printf("enter int value: ");
+   scanf("%u", &N);
+playenum(N);
+return 0; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
